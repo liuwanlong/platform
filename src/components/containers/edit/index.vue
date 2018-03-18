@@ -1,39 +1,63 @@
 <template>
   <el-container>
-    <el-header class="edit__header">Header</el-header>
+    <el-header class="edit__header">
+      <el-button type="info" @click="addChild">添加元素</el-button>
+      <el-button type="info" @click="removeChild">移除元素</el-button>
+      <el-button type="info" @click="removeChild">上一层</el-button>
+      <el-button type="info" @click="removeChild">下一层</el-button>
+    </el-header>
     <el-container>
       <el-aside width="200px" class="edit__layout">
-        <div class="edit__layout__head">布局<i class="el-icon-plus"></i></div>
+        <div class="edit__layout__head">布局<i class="el-icon-plus" @click="addPage"></i></div>
         <div class="edit__layout__cont">
-          <div class="edit__layout__page-card act">1</div>
-          <div class="edit__layout__page-card">2</div>
+          <template v-for="p in pages">
+            <div class="edit__layout__page-card" @click="setPage(p.id)" :class="{act: pageId == p.id}">{{p.id}}</div>
+          </template>
         </div>
       </el-aside>
       <el-main>
-        <div class="edit__platform" ref="platform">
-          <div class="demo" v-drag :style="demoPos"></div>
+        <div class="edit__platform" ref="platform" :style="page.style">
+          <template v-for="c in components">
+            <ele :data="c" :key="c.id"></ele>
+          </template>
         </div>
       </el-main>
       <el-aside width="275px" class="edit__attr">
         <el-tabs type="border-card">
           <el-tab-pane label="编辑">
+            <el-input disabled :value="page.id">
+              <template slot="prepend">页面ID：</template>
+            </el-input>
+            <el-input :value="page.style.backgroundImage" @change="setPageBGI">
+              <template slot="prepend">背景图：</template>
+            </el-input>
+            <el-input disabled :value="currentEL.id">
+              <template slot="prepend">元素ID：</template>
+            </el-input>
 
           </el-tab-pane>
           <el-tab-pane label="外观">
-            <el-input v-model="positionX">
+            <el-input :value="currentEL.style.left" @change="setELLeft">
               <template slot="prepend">x坐标：</template>
             </el-input>
-            <el-input v-model="positionY">
+            <el-input :value="currentEL.style.top" @change="setELTop">
               <template slot="prepend">y坐标：</template>
             </el-input>
-            <el-input v-model="width">
+            <el-input :value="currentEL.style.width" @change="setELWidth">
               <template slot="prepend">宽度：</template>
             </el-input>
-            <el-input v-model="height">
+            <el-input :value="currentEL.style.height" @change="setELHeight">
               <template slot="prepend">高度：</template>
             </el-input>
+            <el-input :value="currentEL.style.borderRadius" @change="setELBorderRadius">
+              <template slot="prepend">圆角：</template>
+            </el-input>
             <div>
-              <div>旋转值：</div>
+              <el-color-picker :value="currentEL.style.backgroundColor" @active-change="setELBGC"
+                               show-alpha></el-color-picker>
+            </div>
+            <div>
+              <div class="el-slider-text">旋转值：</div>
               <el-slider
                 :min="0"
                 :max="360"
@@ -42,70 +66,132 @@
               </el-slider>
             </div>
             <div>
-              <div>透明度：</div>
+              <div class="el-slider-text">透明度：{{currentEL.style.opacity}}</div>
               <el-slider
                 :min="0"
-                :max="100"
+                :max="1"
+                :step="0.01"
                 v-model="opacity"
                 show-input>
               </el-slider>
             </div>
-            <el-input v-model="borderRadius">
-              <template slot="prepend">圆角：</template>
-            </el-input>
           </el-tab-pane>
           <el-tab-pane label="动画">角色管理</el-tab-pane>
           <el-tab-pane label="事件">定时任务补偿</el-tab-pane>
         </el-tabs>
-        <!--<ul class="edit__attr__head">-->
-        <!--<li class="act">编辑</li>-->
-        <!--<li>外观</li>-->
-        <!--<li>动画</li>-->
-        <!--<li>事件</li>-->
-        <!--</ul>-->
       </el-aside>
     </el-container>
   </el-container>
 </template>
 <script>
+  import { mapGetters, mapMutations, mapActions } from 'vuex'
+  import ele from '@/components/cells/element/element.vue'
+
   export default {
     name: 'edit',
     data () {
-      return {
-        positionX: 100,
-        positionY: 100,
-        width: 50,
-        height: 50,
-        rotate: 0,
-        opacity: 100,
-        borderRadius: '0px'
-      }
+      return {}
     },
     computed: {
-      platformPos () {
-        let platformRect = this.$refs.platform.getBoundingClientRect()
-        return {
-          y: platformRect.top,
-          x: platformRect.left
+      ...mapGetters([
+        'pages',
+        'pageId',
+        'page',
+        'currentEL'
+      ]),
+      components () {
+        return this.page.children
+      },
+      rotate: {
+        get: function () {
+          return parseInt(this.currentEL.style.transformRotate)
+        },
+        set: function (val) {
+          this.setELStyle({
+            id: this.currentEL.id,
+            type: 'transformRotate',
+            val
+          })
         }
       },
-      demoPos () {
-        return {
-          top: this.positionX + 'px',
-          left: this.positionY + 'px',
-          width: this.width + 'px',
-          height: this.height + 'px',
-          transform: 'rotate(' + this.rotate + 'deg)',
-          opacity: this.opacity / 100,
-          borderRadius: this.borderRadius
+      opacity: {
+        get: function () {
+          return this.currentEL.style.opacity
+        },
+        set: function (val) {
+          this.setELStyle({
+            id: this.currentEL.id,
+            type: 'opacity',
+            val: val
+          })
         }
       }
     },
-    methods: {},
+    methods: {
+      ...mapMutations([
+        'addChild',
+        'setELStyle',
+        'addPage',
+        'setPage',
+        'setPageStyle',
+        'removeChild'
+      ]),
+      setELLeft (val) {
+        this.setELStyle({
+          id: this.currentEL.id,
+          type: 'left',
+          val
+        })
+      },
+      setELTop (val) {
+        this.setELStyle({
+          id: this.currentEL.id,
+          type: 'top',
+          val
+        })
+      },
+      setELWidth (val) {
+        this.setELStyle({
+          id: this.currentEL.id,
+          type: 'width',
+          val
+        })
+      },
+      setELHeight (val) {
+        this.setELStyle({
+          id: this.currentEL.id,
+          type: 'height',
+          val
+        })
+      },
+      setELBorderRadius (val) {
+        this.setELStyle({
+          id: this.currentEL.id,
+          type: 'borderRadius',
+          val
+        })
+      },
+      setELBGC (val) {
+        this.setELStyle({
+          id: this.currentEL.id,
+          type: 'backgroundColor',
+          val
+        })
+      },
+      setPageBGI (val) {
+        this.setPageStyle({
+          id: this.pageId,
+          type: 'backgroundImage',
+          val: 'url(' + val + ')'
+      })
+      }
+    },
     mounted () {
 
     },
-    components: {}
+    components: {
+      ele
+    }
   }
 </script>
 <style lang="less">
@@ -124,7 +210,10 @@
     height: 100%;
     background-color: #323236;
     color: #fff;
+  }
 
+  .el-slider-text {
+    color: #999;
   }
 
   .edit {
@@ -175,22 +264,6 @@
     }
     &__attr {
       border-left: 1px solid #000;
-      &__head {
-        height: 40px;
-        list-style-type: none;
-        overflow: hidden;
-        li {
-          cursor: pointer;
-          line-height: 40px;
-          display: inline-block;
-          width: 25%;
-          float: left;
-          text-align: center;
-        }
-        li.act {
-          background-color: #666;
-        }
-      }
     }
   }
 </style>

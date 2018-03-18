@@ -19,13 +19,26 @@ Vue.directive('drag', function (el, binding, vnode) {
   oDiv.onmousedown = function (ev) {
     let disX = ev.clientX - oDiv.offsetLeft
     let disY = ev.clientY - oDiv.offsetTop
+    let l = ''
+    let t = ''
+    let id = ev.target.id
+
     document.onmousemove = function (ev) {
-      let l = ev.clientX - disX
-      let t = ev.clientY - disY
+      l = ev.clientX - disX
+      t = ev.clientY - disY
+
       oDiv.style.left = l + 'px'
       oDiv.style.top = t + 'px'
     }
     document.onmouseup = function () {
+      if (l && t) {
+        store.commit('setELPosition', {
+          id: id,
+          left: l + 'px',
+          top: t + 'px'
+        })
+      }
+
       document.onmousemove = null
       document.onmouseup = null
     }
