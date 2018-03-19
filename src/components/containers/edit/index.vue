@@ -3,12 +3,18 @@
     <el-header class="edit__header">
       <el-button type="info" @click="addChild">添加元素</el-button>
       <el-button type="info" @click="removeChild">移除元素</el-button>
-      <el-button type="info" @click="removeChild">上一层</el-button>
-      <el-button type="info" @click="removeChild">下一层</el-button>
+      <el-button type="info" @click="upIndex">上一层</el-button>
+      <el-button type="info" @click="downIndex">下一层</el-button>
     </el-header>
     <el-container>
       <el-aside width="200px" class="edit__layout">
-        <div class="edit__layout__head">布局<i class="el-icon-plus" @click="addPage"></i></div>
+        <div class="edit__layout__head">
+          布局
+          <i class="el-icon-circle-plus" @click="addPage"></i>
+          <i class="el-icon-remove" @click="removePage"></i>
+          <i class="el-icon-sort-up" @click="sortUp"></i>
+          <i class="el-icon-sort-down" @click="sortDown"></i>
+        </div>
         <div class="edit__layout__cont">
           <template v-for="p in pages">
             <div class="edit__layout__page-card" @click="setPage(p.id)" :class="{act: pageId == p.id}">{{p.id}}</div>
@@ -34,7 +40,6 @@
             <el-input disabled :value="currentEL.id">
               <template slot="prepend">元素ID：</template>
             </el-input>
-
           </el-tab-pane>
           <el-tab-pane label="外观">
             <el-input :value="currentEL.style.left" @change="setELLeft">
@@ -132,9 +137,14 @@
         'addChild',
         'setELStyle',
         'addPage',
+        'removePage',
+        'sortDown',
+        'sortUp',
         'setPage',
         'setPageStyle',
-        'removeChild'
+        'removeChild',
+        'upIndex',
+        'downIndex'
       ]),
       setELLeft (val) {
         this.setELStyle({
@@ -183,7 +193,7 @@
           id: this.pageId,
           type: 'backgroundImage',
           val: 'url(' + val + ')'
-      })
+        })
       }
     },
     mounted () {

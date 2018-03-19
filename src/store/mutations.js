@@ -11,7 +11,7 @@ export default {
     state.status.pageId = param
   },
 
-  addPage (state, param) {
+  addPage (state) {
     let page = {
       id: state.data.pages.length + 1,
       style: {
@@ -26,6 +26,52 @@ export default {
     }
     state.data.pages.push(page)
     state.status.pageId = page.id
+  },
+
+  removePage (state) {
+    let pages = state.data.pages
+    let pageId = state.status.pageId
+    if (pages.length === 1) {
+      return
+    } else {
+      pages.splice(pages.findIndex(p => p.id === pageId), 1)
+      pages.map((p, i) => {
+        p.id = i + 1
+      })
+      pageId--
+    }
+
+  },
+  sortUp (state) {
+    let pages = state.data.pages
+    let pageId = state.status.pageId
+    if (pageId === 1) {
+      return
+    } else {
+      let item = pages[pageId - 1]
+      pages[pageId - 1] = pages[pageId - 2]
+      pages[pageId - 2] = item
+      pages.map((p, i) => {
+        p.id = i + 1
+      })
+      state.status.pageId = pageId - 1
+    }
+  },
+
+  sortDown (state) {
+    let pages = state.data.pages
+    let pageId = state.status.pageId
+    if (pageId === pages.length) {
+      return
+    } else {
+      let item = pages[pageId - 1]
+      pages[pageId - 1] = pages[pageId]
+      pages[pageId] = item
+      pages.map((p, i) => {
+        p.id = i + 1
+      })
+      state.status.pageId = pageId + 1
+    }
   },
 
   setPage (state, param) {
@@ -45,6 +91,7 @@ export default {
       type: 'div',
       style: {
         position: 'absolute',
+        zIndex: state.data.pages[state.status.pageId - 1].children.length + 1,
         top: '100px',
         left: '100px',
         width: '150px',
@@ -53,7 +100,7 @@ export default {
         transformRotate: 360,
         opacity: 1,
         borderRadius: '0px',
-        backgroundColor: 'tomato'
+        backgroundColor: '#ff6347'
       },
       attr: {
         text: '',
@@ -87,5 +134,18 @@ export default {
       item.style[param.type] = param.val
     }
   },
+
+  upIndex (state) {
+    let item = state.data.pages[state.status.pageId - 1].children.find(child => child.id === state.status.activeELId)
+    if (item) {
+      item.style.zIndex++
+    }
+  },
+  downIndex (state) {
+    let item = state.data.pages[state.status.pageId - 1].children.find(child => child.id === state.status.activeELId)
+    if (item) {
+      item.style.zIndex--
+    }
+  }
 
 }
