@@ -14,14 +14,14 @@ Vue.use(ElementUI)
 Vue.use(VueRouter)
 Vue.use(VueResource)
 
-Vue.directive('drag', function (el, binding, vnode) {
+Vue.directive('drag', function (el, param, vnode) {
   let oDiv = el
   oDiv.onmousedown = function (ev) {
     let disX = ev.clientX - oDiv.offsetLeft
     let disY = ev.clientY - oDiv.offsetTop
     let l = ''
     let t = ''
-    let id = ev.target.id
+    let id = param.value
 
     document.onmousemove = function (ev) {
       l = ev.clientX - disX

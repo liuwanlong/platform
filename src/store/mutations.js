@@ -94,16 +94,22 @@ export default {
         zIndex: state.data.pages[state.status.pageId - 1].children.length + 1,
         top: '100px',
         left: '100px',
-        width: '150px',
-        height: '150px',
+        width: '',
+        height: '',
         transform: '',
         transformRotate: 360,
         opacity: 1,
         borderRadius: '0px',
-        backgroundColor: '#ff6347'
+        backgroundColor: '#ff6347',
+        color: '#000',
+        fontSize: '16px',
+        lineHeight: '18px',
+        textAlign: 'left',
+        textIndent: '0px',
+        border: ''
       },
       attr: {
-        text: '',
+        text: '哈哈哈',
       }
     })
   },
@@ -132,6 +138,14 @@ export default {
     let item = state.data.pages[state.status.pageId - 1].children.find(child => child.id === param.id)
     if (item) {
       item.style[param.type] = param.val
+    }
+  },
+  setELContent (state, param) {
+
+    let item = state.data.pages[state.status.pageId - 1].children.find(child => child.id === state.status.activeELId)
+    if (item) {
+      item.attr.text = param;
+      // item.style[param.type] = param.val
     }
   },
 

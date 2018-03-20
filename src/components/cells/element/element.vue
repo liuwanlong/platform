@@ -1,5 +1,5 @@
 <template>
-  <div :id="data.id" class="wrap" v-drag :style="style" @click="setCurrentEL(data.id)">
+  <div :id="data.id" class="wrap" v-drag="data.id" :style="style" @click="setCurrentEL(data.id)">
     <img v-if="data.type=='image'" :src="data.attr.src" alt="">
     <div v-if="data.type=='div'">{{data.attr.text}}</div>
   </div>

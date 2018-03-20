@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-header class="edit__header">
+    <el-header class="edit__header" height="40px">
       <el-button type="info" @click="addChild">添加元素</el-button>
       <el-button type="info" @click="removeChild">移除元素</el-button>
       <el-button type="info" @click="upIndex">上一层</el-button>
@@ -40,6 +40,9 @@
             <el-input disabled :value="currentEL.id">
               <template slot="prepend">元素ID：</template>
             </el-input>
+            <el-input :value="currentEL.attr.text" @change="setELContent">
+              <template slot="prepend">内容：</template>
+            </el-input>
           </el-tab-pane>
           <el-tab-pane label="外观">
             <el-input :value="currentEL.style.left" @change="setELLeft">
@@ -57,8 +60,26 @@
             <el-input :value="currentEL.style.borderRadius" @change="setELBorderRadius">
               <template slot="prepend">圆角：</template>
             </el-input>
-            <div>
+            <el-input :value="currentEL.style.fontSize" @change="setELFontSize">
+              <template slot="prepend">字体大小：</template>
+            </el-input>
+            <el-input :value="currentEL.style.lineHeight" @change="setELLineHeight">
+              <template slot="prepend">行高：</template>
+            </el-input>
+            <el-input :value="currentEL.style.textIndent" @change="setELTextIndent">
+              <template slot="prepend">缩进：</template>
+            </el-input>
+            <el-input :value="currentEL.style.border" @change="setELBorder">
+              <template slot="prepend">边框：</template>
+            </el-input>
+            <div style="display: inline-block">
+              <div class="el-slider-text">背景色</div>
               <el-color-picker :value="currentEL.style.backgroundColor" @active-change="setELBGC"
+                               show-alpha></el-color-picker>
+            </div>
+            <div style="display: inline-block">
+              <div class="el-slider-text">字体颜色</div>
+              <el-color-picker :value="currentEL.style.color" @active-change="setELColor"
                                show-alpha></el-color-picker>
             </div>
             <div>
@@ -144,7 +165,8 @@
         'setPageStyle',
         'removeChild',
         'upIndex',
-        'downIndex'
+        'downIndex',
+        'setELContent'
       ]),
       setELLeft (val) {
         this.setELStyle({
@@ -193,6 +215,41 @@
           id: this.pageId,
           type: 'backgroundImage',
           val: 'url(' + val + ')'
+        })
+      },
+      setELColor (val) {
+        this.setELStyle({
+          id: this.currentEL.id,
+          type: 'color',
+          val
+        })
+      },
+      setELFontSize (val) {
+        this.setELStyle({
+          id: this.currentEL.id,
+          type: 'fontSize',
+          val
+        })
+      },
+      setELLineHeight (val) {
+        this.setELStyle({
+          id: this.currentEL.id,
+          type: 'lineHeight',
+          val
+        })
+      },
+      setELTextIndent (val) {
+        this.setELStyle({
+          id: this.currentEL.id,
+          type: 'textIndent',
+          val
+        })
+      },
+      setELBorder(val){
+        this.setELStyle({
+          id: this.currentEL.id,
+          type: 'border',
+          val
         })
       }
     },

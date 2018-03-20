@@ -44,7 +44,13 @@ export default {
           transform: 'rotate(0deg)',
           opacity: 1,
           borderRadius: '',
-          backgroundColor: ''
+          backgroundColor: '',
+          color: '#000',
+          fontSize: '16px',
+          lineHeight: '18px',
+          textAlign: 'left',
+          textIndent: '0px',
+          border: 'none'
         },
         attr: ''
       }
