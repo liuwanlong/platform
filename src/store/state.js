@@ -15,6 +15,7 @@ export default {
     pages: [
       {
         id: 1,
+        type: 'div',
         style: {
           backgroundColor: '',
           backgroundImage: '',
@@ -52,7 +53,15 @@ export default {
           textIndent: '0px',
           border: 'none'
         },
-        attr: ''
+        attr: '',
+        animate: {
+          animated: true,
+          aniType: 'none',
+          duration: '1s',
+          delay: '1s',
+          time: '1',
+          loop: false
+        }
       }
     ]
   },

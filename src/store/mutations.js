@@ -1,6 +1,7 @@
 /**
  * Created by gaoying on 2017/9/21.
  */
+
 export default {
 
   setName (state, param) {
@@ -99,17 +100,57 @@ export default {
         transform: '',
         transformRotate: 360,
         opacity: 1,
+        border: '',
         borderRadius: '0px',
-        backgroundColor: '#ff6347',
+        backgroundColor: '',
         color: '#000',
         fontSize: '16px',
         lineHeight: '18px',
         textAlign: 'left',
         textIndent: '0px',
-        border: ''
       },
       attr: {
         text: '哈哈哈',
+      },
+      animate: {
+        animated: true,
+        aniType: 'none',
+        duration: '1s',
+        delay: '1s',
+        time: '1',
+        loop: ''
+      }
+    })
+  },
+  addImgChild (state, param) {
+    let page = state.data.pages[state.status.pageId - 1]
+    page.children.push({
+      id: +new Date(),
+      type: 'image',
+      style: {
+        position: 'absolute',
+        zIndex: page.children.length + 1,
+        top: '100px',
+        left: '100px',
+        width: 'auto',
+        height: 'auto',
+        transform: '',
+        transformRotate: 360,
+        opacity: 1,
+        border: '',
+        borderRadius: '0px',
+        // animationIterationCount:1
+      },
+      attr: {
+        src: param
+      },
+      animate: {
+        animated: true,
+        aniType: 'none',
+        duration: '1s',
+        delay: '1s',
+        time: '1',
+        loop: false
       }
     })
   },
@@ -140,11 +181,18 @@ export default {
       item.style[param.type] = param.val
     }
   },
+
+  setELAnimate (state, param) {
+    let item = state.data.pages[state.status.pageId - 1].children.find(child => child.id === state.status.activeELId)
+    if (item) {
+      item.animate[param.type] = param.val
+    }
+  },
   setELContent (state, param) {
 
     let item = state.data.pages[state.status.pageId - 1].children.find(child => child.id === state.status.activeELId)
     if (item) {
-      item.attr.text = param;
+      item.attr.text = param
       // item.style[param.type] = param.val
     }
   },
