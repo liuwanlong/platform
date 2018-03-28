@@ -2,8 +2,6 @@ export default {
   animateType: [
     {key: '无', value: 'none'},
     {key: '弹跳', value: 'bounce'},
-    {key: '匀速旋转', value: 'rotating'},
-    {key: '反向匀速旋转', value: 'rotatingback'},
     {key: '闪烁', value: 'flash'},
     {key: '脉动', value: 'pulse'},
     {key: '橡皮圈', value: 'rubberBand'},
@@ -71,7 +69,5 @@ export default {
     {key: '左下方放大滑落', value: 'meteorFL'},
     {key: '右下方抛落', value: 'meteoriteFR'},
     {key: '左下方抛落', value: 'meteoriteFL'},
-    {key: '左侧横向移动', value: 'horizontalFL'},
-    {key: '右侧横向移动', value: 'horizontalFR'}
   ]
 }

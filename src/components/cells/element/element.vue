@@ -20,8 +20,8 @@
     computed: {
       style () {
         this.data.style.transform = 'rotate(' + this.data.style.transformRotate + 'deg)'
+        this.data.style.animationIterationCount = this.data.animate.loop ? 'infinite' : this.data.animate.time
         return this.data.style
-
       }
     },
     methods: {

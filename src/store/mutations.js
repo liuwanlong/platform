@@ -108,6 +108,7 @@ export default {
         lineHeight: '18px',
         textAlign: 'left',
         textIndent: '0px',
+        animationIterationCount: '1'
       },
       attr: {
         text: '哈哈哈',
@@ -118,7 +119,7 @@ export default {
         duration: '1s',
         delay: '1s',
         time: '1',
-        loop: ''
+        loop: false
       }
     })
   },
@@ -139,7 +140,7 @@ export default {
         opacity: 1,
         border: '',
         borderRadius: '0px',
-        // animationIterationCount:1
+        animationIterationCount: '1'
       },
       attr: {
         src: param

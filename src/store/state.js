@@ -51,7 +51,8 @@ export default {
           lineHeight: '18px',
           textAlign: 'left',
           textIndent: '0px',
-          border: 'none'
+          border: 'none',
+          animationIterationCount: '1'
         },
         attr: '',
         animate: {

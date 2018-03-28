@@ -6,6 +6,7 @@
       <el-button type="info" @click="removeChild">移除元素</el-button>
       <el-button type="info" @click="upIndex">上一层</el-button>
       <el-button type="info" @click="downIndex">下一层</el-button>
+      <el-button type="info" @click="createCode">生成代码</el-button>
     </el-header>
     <el-container>
       <el-aside width="200px" class="edit__layout">
@@ -23,6 +24,15 @@
         </div>
       </el-aside>
       <el-main>
+        <div style="display: none" ref="codeWrap">
+          <template v-for="p in pages">
+            <div class="edit__platform swiper-slide" :class="'p'+p.id" :style="p.style">
+              <template v-for="c in p.children">
+                <ele :data="c" :key="c.id"></ele>
+              </template>
+            </div>
+          </template>
+        </div>
         <div class="edit__platform" ref="platform" :style="page.style">
           <template v-for="c in components">
             <ele :data="c" :key="c.id"></ele>
@@ -123,7 +133,7 @@
             </el-input>
             <div class="el-slider-text">
               播放次数
-              <el-input-number size="small" v-model="aniTime"></el-input-number>
+              <el-input-number size="small" :min="1" :disabled="aniLoop" v-model="aniTime"></el-input-number>
             </div>
             <div>
               <el-checkbox v-model="aniLoop">是否循环播放</el-checkbox>
@@ -263,6 +273,10 @@
         'setELContent',
         'setELAnimate'
       ]),
+      createCode () {
+        let codeStr = this.$refs.codeWrap.innerHTML
+        console.log(this.$refs.codeWrap.innerHTML)
+      },
       openImgBox () {
         let me = this
         this.$prompt('请输入图片路径', '提示', {

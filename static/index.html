@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>H5</title>
+  <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+  <link rel="stylesheet" href="./css/animate.min.css">
+  <link rel="stylesheet" href="./css/swiper-3.4.2.min.css">
+  <link rel="stylesheet" href="./css/index.css">
+  <script>
+    (function () {
+      var vt = document.getElementById('viewport')
+      vt.getAttribute('content')
+      var scale = window.screen.width / 375
+      vt.setAttribute('content', 'width=375,initial-scale=' + scale + ',user-scalable=no')
+    })()
+  </script>
+</head>
+<body>
+<div class="swiper-container">
+  <div class="swiper-wrapper">
+    <div class="edit__platform swiper-slide p1" style="background-size: 100% 100%; background-position: center center; background-repeat: no-repeat; opacity: 100;"><div data-v-35989551="" id="1522221171192" swiper-animate-effect="bounceIn" swiper-animate-duration="1s" swiper-animate-delay="0s" class="wrap ani" style="position: absolute; z-index: 1; top: 69px; left: 120px; transform: rotate(360deg); opacity: 1; border-radius: 0px; color: rgb(252, 122, 122); font-size: 27px; line-height: 27px; text-align: left; text-indent: 0px; animation-iteration-count: 1; background-color: rgb(255, 255, 255);"><!----> <div data-v-35989551="">我的毕业设计</div></div><div data-v-35989551="" id="1522223151943" swiper-animate-effect="bounceIn" swiper-animate-duration="1s" swiper-animate-delay="0.2s" class="wrap ani" style="position: absolute; z-index: 2; top: 145px; left: 134px; transform: rotate(360deg); opacity: 1; border-radius: 0px; color: rgb(0, 0, 0); font-size: 16px; line-height: 18px; text-align: left; text-indent: 0px; animation-iteration-count: 1; background-color: rgb(255, 255, 255);"><!----> <div data-v-35989551="">H5页面操作平台</div></div><div data-v-35989551="" id="1522223191367" swiper-animate-effect="bounceInLeft" swiper-animate-duration="1s" swiper-animate-delay="0.3s" class="wrap ani" style="position: absolute; z-index: 3; top: 213px; left: 153px; transform: rotate(360deg); opacity: 1; border-radius: 0px; color: rgb(0, 0, 0); font-size: 16px; line-height: 18px; text-align: left; text-indent: 0px; animation-iteration-count: 1; background-color: rgb(255, 255, 255);"><!----> <div data-v-35989551="">可视化操作</div></div><div data-v-35989551="" id="1522223207071" swiper-animate-effect="bounceInRight" swiper-animate-duration="1s" swiper-animate-delay="0.5s" class="wrap ani" style="position: absolute; z-index: 4; top: 287px; left: 142px; transform: rotate(360deg); opacity: 1; border-radius: 0px; color: rgb(0, 0, 0); font-size: 16px; line-height: 18px; text-align: left; text-indent: 0px; animation-iteration-count: 1; background-color: rgb(255, 255, 255);"><!----> <div data-v-35989551="">无需编写代码</div></div></div><div class="edit__platform swiper-slide p2" style="background-size: 100% 100%; background-position: center center; background-repeat: no-repeat; opacity: 100;"><div data-v-35989551="" id="1522221576045" swiper-animate-effect="fadeInUpBig" swiper-animate-duration="1s" swiper-animate-delay="0s" class="wrap ani" style="position: absolute; z-index: 1; top: 104px; left: 117px; transform: rotate(360deg); opacity: 1; border-radius: 0px; color: rgb(227, 33, 33); font-size: 30px; line-height: 100px; text-align: left; text-indent: 0px; animation-iteration-count: 1; background-color: rgb(255, 255, 255);"><!----> <div data-v-35989551="">炫酷不炫酷</div></div></div><div class="edit__platform swiper-slide p3" style="background-size: 100% 100%; background-position: center center; background-repeat: no-repeat; opacity: 100;"><div data-v-35989551="" id="1522221585493" swiper-animate-effect="flipInY" swiper-animate-duration="1s" swiper-animate-delay="0s" class="wrap ani" style="position: absolute; z-index: 1; top: 132px; left: 46px; transform: rotate(360deg); opacity: 1; border-radius: 0px; color: rgb(0, 0, 0); font-size: 50px; line-height: 59px; text-align: left; text-indent: 0px; animation-iteration-count: 1; background-color: rgb(255, 255, 255); width: 375px;"><!----> <div data-v-35989551="">没网了FUCK！</div></div><div data-v-35989551="" id="1522223351510" swiper-animate-effect="bounceInDown" swiper-animate-duration="1s" swiper-animate-delay="0.2s" class="wrap ani" style="position: absolute; z-index: 2; top: 301px; left: 151px; transform: rotate(360deg); opacity: 1; border-radius: 0px; color: rgb(248, 7, 7); font-size: 30px; line-height: 30px; text-align: left; text-indent: 0px; animation-iteration-count: 1; background-color: rgb(255, 255, 255);"><!----> <div data-v-35989551="">FUCK</div></div></div>
+  </div>
+</div>
+</body>
+<script src="./js/jquery.min.js"></script>
+<script src="./js/swiper.min.js"></script>
+<script src="./js/swiper.animate1.0.2.min.js"></script>
+<script>
+  window.swiper = new Swiper('.swiper-container', {
+    direction: 'vertical',
+    loop: false,
+    speed: '1s',
+    noSwiping : true,
+    onInit: function (swiper) {
+      swiperAnimateCache(swiper)
+      swiperAnimate(swiper)
+    },
+    onSlideChangeEnd: function (swiper) {
+      swiperAnimate(swiper)
+    }
+  })
+</script>
+</html>
