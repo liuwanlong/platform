@@ -4,6 +4,28 @@
 
 export default {
 
+  initStore (state, param) {
+    if(param){
+      state.data.pages = param;
+    }else{
+      state.data.pages = [
+        {
+          id: 1,
+          type: 'div',
+          style: {
+            backgroundColor: '',
+            backgroundImage: '',
+            backgroundSize: '100% 100%',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            opacity: 100,
+          },
+          children: []
+        }
+      ]
+    }
+  },
+
   setName (state, param) {
     state.data.name = param
   },

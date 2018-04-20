@@ -6,7 +6,8 @@
       <el-button type="info" @click="removeChild">移除元素</el-button>
       <el-button type="info" @click="upIndex">上一层</el-button>
       <el-button type="info" @click="downIndex">下一层</el-button>
-      <el-button type="info" @click="createCode">生成代码</el-button>
+      <el-button type="info" @click="saveCode">保存</el-button>
+      <el-button type="info" @click="createCode">预览</el-button>
     </el-header>
     <el-container>
       <el-aside width="200px" class="edit__layout">
@@ -139,13 +140,14 @@
               <el-checkbox v-model="aniLoop">是否循环播放</el-checkbox>
             </div>
           </el-tab-pane>
-          <el-tab-pane label="事件">定时任务补偿</el-tab-pane>
+          <!--<el-tab-pane label="事件">定时任务补偿</el-tab-pane>-->
         </el-tabs>
       </el-aside>
     </el-container>
   </el-container>
 </template>
 <script>
+  import { getProjects, setProject } from '@/service/home'
   import { mapGetters, mapMutations, mapActions } from 'vuex'
   import ele from '@/components/cells/element/element.vue'
   import animateModel from '@/store/model/animateType'
@@ -203,7 +205,7 @@
       },
       aniTime: {
         get: function () {
-          return this.animate.time
+          return Number(this.animate.time)
         },
         set: function (val) {
           this.setELAnimate({
@@ -214,10 +216,9 @@
       },
       aniLoop: {
         get: function () {
-          return this.animate.loop
+          return this.animate.aniLoop
         },
         set: function (val) {
-          console.log(val)
           this.setELAnimate({
             type: 'loop',
             val
@@ -244,7 +245,7 @@
       },
       opacity: {
         get: function () {
-          return this.currentEL.style.opacity
+          return parseInt(this.currentEL.style.opacity)
         },
         set: function (val) {
           this.setELStyle({
@@ -271,11 +272,31 @@
         'upIndex',
         'downIndex',
         'setELContent',
-        'setELAnimate'
+        'setELAnimate',
+        'initStore'
       ]),
+      saveCode () {
+        let pId = this.$route.params.id
+        setProject({
+          store: this.pages,
+          id: this.$route.params.id
+        }, (res) => {
+          if (res.body.code) {
+            this.$message('保存成功')
+//            this.$router.push({name: 'project', params: {id: pId}})
+          }
+        })
+      },
       createCode () {
-        let codeStr = this.$refs.codeWrap.innerHTML
-        console.log(this.$refs.codeWrap.innerHTML)
+        let pId = this.$route.params.id
+        setProject({
+          store: this.pages,
+          id: this.$route.params.id
+        }, (res) => {
+          if (res.body.code) {
+            this.$router.push({name: 'project', params: {id: pId}})
+          }
+        })
       },
       openImgBox () {
         let me = this
@@ -382,7 +403,13 @@
     },
     components: {
       ele
-    }
+    },
+    created () {
+//      let pages = JSON.parse(localStorage.getItem('pages'))
+//      if(pages.length){
+//        this.initStore(pages);
+//      }
+    },
   }
 </script>
 <style lang="less">
@@ -442,7 +469,7 @@
     &__platform {
       width: 375px;
       margin: 0 auto;
-      height: 627px;
+      height: 667px;
       background-color: #fff;
       position: relative;
       overflow: hidden;

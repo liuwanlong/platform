@@ -1,17 +1,5 @@
-/**
- * Created by gaoying on 2017/9/21.
- */
 export default {
   data: {
-    name: 'vue-demo',
-    type: {
-      picture: {
-        property: ['width', 'height', 'positionX', 'positionY', 'rotate', 'opacity', 'borderRadius', 'backgroundColor']
-      },
-      div: {
-        property: ['width', 'height', 'positionX', 'positionY', 'rotate', 'opacity', 'borderRadius', 'backgroundColor']
-      }
-    },
     pages: [
       {
         id: 1,

@@ -3,8 +3,42 @@
 <head>
   <meta charset="utf-8">
   <title>vue_demo</title>
+  <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+  <link rel="stylesheet" href="http://campus.chinahr.com/2018/yzjs/css/animate.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    html，body {
+      width: 100%;
+      height: 100%;
+    }
+
+    #swiper-container {
+      width: 375px;
+      margin: 0 auto;
+      height: 666px;
+      background-color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+  </style>
+  <script>
+    (function () {
+      var vt = document.getElementById('viewport')
+      vt.getAttribute('content')
+      var scale = window.screen.width / 375
+      vt.setAttribute('content', 'width=375,initial-scale=' + scale + ',user-scalable=no')
+    })()
+  </script>
+</head>
 </head>
 <body>
 <div id="app"></div>
+<script src="http://st01.chrstatic.com/themes/chr-cdn/jquery/v3.2.1/jquery.min.js"></script>
+<!--<script src="http://st01.chrstatic.com/themes/chr-cdn/swiper/v3.4.2/swiper-3.4.2.min.js"></script>-->
+<script src="http://st01.chrstatic.com/themes/chr-cdn/swiper/v3.4.2/swiper.animate1.0.2.min.js"></script>
 </body>
 </html>
